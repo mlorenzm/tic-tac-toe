@@ -1,0 +1,27 @@
+{
+  "name": "tic-tac-toe",
+  "version": "1.0.0",
+  "description": "tic tac toe game",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "format": "npx prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlorenzm/tic-tac-toe.git"
+  },
+  "author": "Mauro Lorenzo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlorenzm/tic-tac-toe/issues"
+  },
+  "homepage": "https://github.com/mlorenzm/tic-tac-toe#readme",
+  "devDependencies": {
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "tailwindcss": "^3.3.1"
+  }
+}
