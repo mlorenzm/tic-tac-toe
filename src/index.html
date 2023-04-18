@@ -5,8 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/dist/output.css" rel="stylesheet" />
-    <script src="app.js"></script>
+    <script defer src="app.js"></script>
     <title>Tic Tac Toe</title>
   </head>
-  <body></body>
+  <body class="grid place-items-center h-screen box-border">
+    <div id="main" class="grid gap-5 place-items-center">
+      <h1
+        class="text-9xl hidden font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-sky-600"
+      >
+        Tic-Tac-Toe
+      </h1>
+      <button
+        id="start"
+        class="bg-slate-200 hidden text-lg w-40 font-bold px-4 py-4 rounded-md hover:bg-transparent border shadow-sm transition-all hover:shadow-md"
+      >
+        Start Game
+      </button>
+
+      <div id="game-container" class="flex"></div>
+    </div>
+  </body>
 </html>
