@@ -30,13 +30,26 @@
           </h1>
           <div class="flex flex-col gap-10">
             <div class="flex flex-row gap-6">
-              <input type="radio" id="p1-cross" name="p1-symbol" value="cross" class="w-6" />
+              <input
+                type="radio"
+                id="p1-cross"
+                name="p1-symbol"
+                value="cross"
+                class="w-6"
+              />
               <label for="p1-cross">
                 <img src="../assets/cross-icon.svg" width="50px" />
               </label>
             </div>
             <div class="flex flex-row gap-6">
-              <input type="radio" id="p1-circle" name="p1-symbol" class="w-6" value="circle" required/>
+              <input
+                type="radio"
+                id="p1-circle"
+                name="p1-symbol"
+                class="w-6"
+                value="circle"
+                required
+              />
               <label for="p1-circle">
                 <img src="../assets/circle-icon.svg" width="50px" />
               </label>
@@ -55,11 +68,13 @@
             <div class="w-36 h-36 bg-gray-500 rounded"></div>
             <div class="w-36 h-36 bg-gray-500 rounded"></div>
           </div>
-          <input type="submit" value="Start Game"
+          <button
+            value="Start Game"
             id="start-game"
             class="bg-slate-200 text-lg w-40 font-bold px-4 py-4 rounded-md hover:bg-transparent border shadow-sm transition-all hover:shadow-md"
           >
-        </input>
+            Start Game
+          </button>
         </div>
 
         <div id="p2-container" class="flex-1 flex flex-col items-center gap-20">
@@ -70,13 +85,25 @@
           </h1>
           <div class="flex flex-col gap-10">
             <div class="flex flex-row gap-6">
-              <input type="radio" id="p2-cross" name="p2-symbol" class="w-6" value="cross"/>
+              <input
+                type="radio"
+                id="p2-cross"
+                name="p2-token"
+                class="w-6"
+                value="cross"
+              />
               <label for="p2-cross">
                 <img src="../assets/cross-icon.svg" width="50px" />
               </label>
             </div>
             <div class="flex flex-row gap-6">
-              <input type="radio" id="p2-circle" name="p2-symbol" class="w-6" value="circle" />
+              <input
+                type="radio"
+                id="p2-circle"
+                name="p2-symbol"
+                class="w-6"
+                value="circle"
+              />
               <label for="p2-circle">
                 <img src="../assets/circle-icon.svg" width="50px" />
               </label>
