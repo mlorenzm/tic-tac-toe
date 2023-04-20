@@ -31,11 +31,9 @@
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
-  arrayboard = ['', '', '', '', '', '', '', '', '']
+  board = ['', '', '', '', '', '', '', '', '']
   // we need a method to export our board
-  const getBoard = () => {
-    return { arrayboard }
-  }
+  const getBoard = () => board
 
   // we need a method to modify our board with current player's token on board's
 
@@ -64,7 +62,6 @@ const playerFactory = (name, token) => {
 }
 // Controls game flow
 const gameController = (() => {
-  board = gameBoard
   player1 = playerFactory('PlayerOne', 'X')
   player2 = playerFactory('PlayerTwo', 'O')
 
@@ -78,13 +75,20 @@ const gameController = (() => {
   const getActivePlayer = () => activePlayer
   // only for console implementation
   const printNewRound = () => {
-    board.getBoard()
+    gameBoard.getBoard()
     console.log(`${getActivePlayer().getName()}'s turn.`)
   }
   const getBoard = () => {
-    return board.getBoard()
+    return gameBoard.getBoard()
+  }
+  const playRound = () => {
+    index = prompt(`${activePlayer}, select position [0-9]`)
+    gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
+    console.log(gameBoard.getBoard())
+    switchPlayerTurn()
   }
   return {
+    playRound,
     getBoard,
     switchPlayerTurn,
     activePlayer,
