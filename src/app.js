@@ -31,14 +31,16 @@
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
-  board = ['', '', '', '', '', '', '', '', '']
+  arrayboard = ['', '', '', '', '', '', '', '', '']
   // we need a method to export our board
   const getBoard = () => {
-    return board
+    return { arrayboard }
   }
-  // we need a method to modify our board with current player's token on board's[index] position
+
+  // we need a method to modify our board with current player's token on board's
+
   const placeToken = (board, player, index) => {
-    // Here, we first need to see which positions are available (empty) on our array
+    // Allow to only place on empty positions (legal moves)
     if (board[index] === '') {
       board[index] = player.getToken()
     } else {
@@ -60,7 +62,33 @@ const playerFactory = (name, token) => {
   }
   return { getToken, getName }
 }
-player1 = playerFactory('a', 'x')
-player2 = playerFactory('a', '0')
 // Controls game flow
-const gameController = (player1, player2) => {}
+const gameController = (() => {
+  board = gameBoard
+  player1 = playerFactory('PlayerOne', 'X')
+  player2 = playerFactory('PlayerTwo', 'O')
+
+  players = [player1, player2]
+  //Active player is Player one
+  let activePlayer = players[0]
+
+  const switchPlayerTurn = () => {
+    activePlayer = activePlayer === players[0] ? players[1] : players[0]
+  }
+  const getActivePlayer = () => activePlayer
+  // only for console implementation
+  const printNewRound = () => {
+    board.getBoard()
+    console.log(`${getActivePlayer().getName()}'s turn.`)
+  }
+  const getBoard = () => {
+    return board.getBoard()
+  }
+  return {
+    getBoard,
+    switchPlayerTurn,
+    activePlayer,
+    printNewRound,
+    getActivePlayer,
+  }
+})()
