@@ -42,7 +42,7 @@ const gameBoard = (() => {
     if (board[index] === '') {
       board[index] = player.getToken()
     } else {
-      return
+      return // i need this to prompt again when an illegal move is selected
     }
   }
   return { getBoard, placeToken }
@@ -82,13 +82,15 @@ const gameController = (() => {
     return gameBoard.getBoard()
   }
   const playRound = () => {
-    index = prompt(`${activePlayer}, select position [0-9]`)
+    index = prompt(`${activePlayer.getName()}, select position [0-9]`)
     gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
     console.log(gameBoard.getBoard())
     switchPlayerTurn()
   }
+
   return {
     playRound,
+    activePlayer,
     getBoard,
     switchPlayerTurn,
     activePlayer,
@@ -96,3 +98,5 @@ const gameController = (() => {
     getActivePlayer,
   }
 })()
+
+const game = gameController
