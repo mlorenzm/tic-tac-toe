@@ -31,7 +31,7 @@
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
-  board = ['', '', '', '', '', '', '', '', '']
+  board = ['X', 'X', 'X', '', '', '', '', '', '']
   // we need a method to export our board
   const getBoard = () => board
 
@@ -88,7 +88,62 @@ const gameController = (() => {
     switchPlayerTurn()
   }
 
+  // Manually check each win case. Return either an empty string (no winners yet), or winner's token
+  const checkWin = () => {
+    //  1st row
+    if (
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[1] &&
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[2]
+    ) {
+      return gameBoard.getBoard()[0]
+      //  2nd row
+    } else if (
+      gameBoard.getBoard()[3] == gameBoard.getBoard()[4] &&
+      gameBoard.getBoard()[3] == gameBoard.getBoard()[5]
+    ) {
+      return gameBoard.getBoard()[3]
+      //  3rd row
+    } else if (
+      gameBoard.getBoard()[6] == gameBoard.getBoard()[7] &&
+      gameBoard.getBoard()[6] == gameBoard.getBoard()[8]
+    ) {
+      return gameBoard.getBoard()[6]
+      // 1st column
+    } else if (
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[3] &&
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[6]
+    ) {
+      return gameBoard.getBoard()[0]
+      //  2nd column
+    } else if (
+      gameBoard.getBoard()[1] == gameBoard.getBoard()[4] &&
+      gameBoard.getBoard()[1] == gameBoard.getBoard()[7]
+    ) {
+      return gameBoard.getBoard()[1]
+      // 3rd column
+    } else if (
+      gameBoard.getBoard()[2] == gameBoard.getBoard()[5] &&
+      gameBoard.getBoard()[2] == gameBoard.getBoard()[8]
+    ) {
+      return gameBoard.getBoard()[2]
+      // Diagonal forward
+    } else if (
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[4] &&
+      gameBoard.getBoard()[0] == gameBoard.getBoard()[8]
+    ) {
+      return gameBoard.getBoard()[0]
+      // Diagonal backwards
+    } else if (
+      gameBoard.getBoard()[2] == gameBoard.getBoard()[4] &&
+      gameBoard.getBoard()[2] == gameBoard.getBoard()[6]
+    ) {
+      return gameBoard.getBoard()[2]
+    }
+    return ' ' //
+  }
+
   return {
+    checkWin,
     playRound,
     activePlayer,
     getBoard,
@@ -98,5 +153,3 @@ const gameController = (() => {
     getActivePlayer,
   }
 })()
-
-const game = gameController
