@@ -36,10 +36,7 @@ const gameController = (() => {
   players = []
   //Active player is Player one
   let activePlayer = players[0]
-  let turn = 1
-  const getTurn = () => {
-    return turn
-  }
+
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0]
   }
@@ -54,8 +51,8 @@ const gameController = (() => {
   const getBoard = () => {
     return gameBoard.getBoard()
   }
-  const playRound = () => {
-    index = prompt(`${activePlayer.getName()}, select position [0-9]`)
+  const playRound = (index) => {
+    console.log(index)
     gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
     console.log(gameBoard.getBoard())
     switchPlayerTurn()
@@ -148,7 +145,6 @@ const gameController = (() => {
     }
   }
   return {
-    getTurn,
     playGame,
     resetGame,
     getWinnerToken,
@@ -166,20 +162,57 @@ const gameController = (() => {
 const displayController = (() => {
   const startBtn = document.getElementById('start'),
     main = document.getElementById('main'),
-    // Functions
-    toggleScreen = () => {
-      event.preventDefault()
-      const children = main.children
-      for (const child of main.children) {
-        child.classList.toggle('hidden')
-      }
+    playerTurnDiv = document.getElementById('player-turn')
+  boardContainer = document.getElementById('board-container')
+  // Functions
+  toggleScreen = () => {
+    event.preventDefault()
+    const children = main.children
+    for (const child of main.children) {
+      child.classList.toggle('hidden')
     }
-  createPlayers = () => {}
+  }
+  const createPlayers = () => {
+    event.preventDefault()
+    let playerOneValue = document.getElementById('p1').value
+    if (playerOneValue == '') {
+      playerOneValue = 'Player One'
+    }
+    let playerTwoValue = document.getElementById('p2').value
+    if (playerTwoValue == '') {
+      playerTwoValue = 'Player Two'
+    }
+    let p1 = playerFactory(playerOneValue, 'X')
+    let p2 = playerFactory(playerTwoValue, 'O')
+    players.push(p1, p2)
+    gameController.switchPlayerTurn()
+    announceActivePlayer()
+  }
+  const getClickedCell = (e) => {
+    return e.target.dataset.value
+  }
+  const announceActivePlayer = () => {
+    playerTurnDiv.textContent = `It's ${gameController
+      .getActivePlayer()
+      .getName()}'s turn`
+  }
   // Events
   startBtn.addEventListener('click', toggleScreen)
   startBtn.addEventListener('click', createPlayers)
 
-  return { toggleScreen, createPlayers }
+  boardContainer.addEventListener(
+    'click',
+    gameController.playRound((e) => {
+      return e.target.dataset.value
+    })
+  )
+  return {
+    boardContainer,
+    announceActivePlayer,
+    getClickedCell,
+    toggleScreen,
+    createPlayers,
+  }
 })()
 
 // displayController.toggleScreen()

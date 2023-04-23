@@ -17,14 +17,14 @@
         Tic-Tac-Toe
       </h1>
       <form id="form-container" class="flex flex-col gap-6 mt-6 shadow-lg p-6 rounded-lg">
-        <div id="p1" class="flex flex-col gap-2 mt-3">
+        <div  class="flex flex-col gap-2 mt-3">
           <div id="p1-header" class="flex flex-row content-center justify-between">
             <label for="p1" class="text-lg font-semibold">Player One</label>
             <img src="../assets/cross-icon.svg" width="20px" >
           </div>
           <input type="text" name="p1" id="p1" placeholder="Player One"class="border-rose-300 p-1 pl-2 border rounded-md shadow-sm placeholder:text-gray-400">
         </div>
-        <div id="p2" class="flex flex-col gap-2 mt-3">
+        <div  class="flex flex-col gap-2 mt-3">
           <div id="p2-header" class="flex flex-row content-center justify-between">
             <label for="p2" class="text-lg font-semibold">Player Two</label>
               <img src="../assets/circle-icon.svg" width="20px" >
@@ -37,17 +37,18 @@
 
     </form>
 
-        <div id="game" class="hidden">
+        <div id="game" class="hidden flex flex-col gap-6">
+          <div id="player-turn" class="text-2xl text-center"></div>
           <div id="board-container" class="grid grid-cols-3 gap-3">
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
-            <div class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '0'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '1'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '2'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '3'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '4'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '5'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '6'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '7'class="w-36 h-36 bg-gray-500 rounded"></div>
+            <div data-value = '8'class="w-36 h-36 bg-gray-500 rounded"></div>
           </div>
           
         </div>
