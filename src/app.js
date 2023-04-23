@@ -45,6 +45,7 @@ const gameBoard = (() => {
       return // i need this to prompt again when an illegal move is selected
     }
   }
+
   return { getBoard, placeToken }
 })()
 
@@ -158,10 +159,15 @@ const gameController = (() => {
     ) {
       return gameBoard.getBoard()[2]
     }
-    return false //
+    return false
   }
-
+  const clearBoard = () => {
+    for (let i = 0; i < gameBoard.getBoard().length; i++) {
+      gameBoard.getBoard()[i] = ''
+    }
+  }
   return {
+    clearBoard,
     getWinnerToken,
     checkWin,
     playRound,
