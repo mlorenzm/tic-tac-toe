@@ -31,7 +31,7 @@
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
-  board = ['', '', '', '', '', '', '', '', '']
+  board = ['X', 'X', '', '', '', '', '', '', '']
   // we need a method to export our board
   const getBoard = () => board
 
@@ -87,9 +87,18 @@ const gameController = (() => {
     console.log(gameBoard.getBoard())
     switchPlayerTurn()
     checkWin()
+    if (checkWin() != false) {
+      getWinnerToken()
+      return
+    }
   }
-
-  // Manually check each win case. Return either an empty string (no winners yet), or winner's token
+  const getWinnerToken = () => {
+    result = players.find(
+      (item) => item.getToken() == gameController.checkWin()
+    )
+    console.log(`${result.getName()} wins!`)
+  }
+  // Manually check each win case. Return either false (no winners yet), or winner's token
 
   const checkWin = () => {
     //  1st row
@@ -153,12 +162,13 @@ const gameController = (() => {
   }
 
   return {
+    getWinnerToken,
     checkWin,
     playRound,
     activePlayer,
     getBoard,
     switchPlayerTurn,
-    activePlayer,
+    players,
     printNewRound,
     getActivePlayer,
   }
