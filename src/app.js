@@ -1,37 +1,37 @@
-// const displayController = (() => {
-//   const startBtn = document.getElementById('start'),
-//     main = document.getElementById('main'),
-//     submitBtn = document.getElementById('start-game')
+const displayController = (() => {
+  const startBtn = document.getElementById('start'),
+    main = document.getElementById('main'),
+    submitBtn = document.getElementById('start-game')
 
-//   // document.querySelector("input[type='radio'][name=rate]:checked").value
-//   // Functions
-//   toggleScreen = () => {
-//     const children = main.children
-//     for (const child of main.children) {
-//       child.classList.toggle('hidden')
-//     }
-//   }
-//   createPlayers = (event) => {
-//     p1 = playerFactory(
-//       document.querySelector("input[type='radio'][name=p1-symbol]:checked")
-//         .value
-//     )
-//     p2 = playerFactory(
-//       document.querySelector("input[type='radio'][name=p2-symbol]:checked")
-//         .value
-//     )
-//   }
-//   // Events
-//   submitBtn.addEventListener('click', createPlayers)
-//   startBtn.addEventListener('click', toggleScreen)
+  // document.querySelector("input[type='radio'][name=rate]:checked").value
+  // Functions
+  toggleScreen = () => {
+    const children = main.children
+    for (const child of main.children) {
+      child.classList.toggle('hidden')
+    }
+  }
+  createPlayers = (event) => {
+    p1 = playerFactory(
+      document.querySelector("input[type='radio'][name=p1-symbol]:checked")
+        .value
+    )
+    p2 = playerFactory(
+      document.querySelector("input[type='radio'][name=p2-symbol]:checked")
+        .value
+    )
+  }
+  // Events
+  submitBtn.addEventListener('click', createPlayers)
+  startBtn.addEventListener('click', toggleScreen)
 
-//   return { toggleScreen: toggleScreen, createPlayers: createPlayers }
-// })()
+  return { toggleScreen: toggleScreen, createPlayers: createPlayers }
+})()
 
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
-  board = ['X', 'X', '', '', '', '', '', '', '']
+  board = ['', '', '', '', '', '', '', '', '']
   // we need a method to export our board
   const getBoard = () => board
 
@@ -69,7 +69,10 @@ const gameController = (() => {
   players = [player1, player2]
   //Active player is Player one
   let activePlayer = players[0]
-
+  let turn = 1
+  const getTurn = () => {
+    return turn
+  }
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0]
   }
@@ -87,12 +90,8 @@ const gameController = (() => {
     gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
     console.log(gameBoard.getBoard())
     switchPlayerTurn()
-    checkWin()
-    if (checkWin() != false) {
-      getWinnerToken()
-      return
-    }
   }
+
   const getWinnerToken = () => {
     result = players.find(
       (item) => item.getToken() == gameController.checkWin()
@@ -100,7 +99,6 @@ const gameController = (() => {
     console.log(`${result.getName()} wins!`)
   }
   // Manually check each win case. Return either false (no winners yet), or winner's token
-
   const checkWin = () => {
     //  1st row
     if (
@@ -161,13 +159,29 @@ const gameController = (() => {
     }
     return false
   }
-  const clearBoard = () => {
+  const resetGame = () => {
     for (let i = 0; i < gameBoard.getBoard().length; i++) {
       gameBoard.getBoard()[i] = ''
     }
+    activePlayer = players[0]
+  }
+  const playGame = () => {
+    for (let turn = 0; turn < 9; turn++) {
+      checkWin()
+      if (checkWin() != false) {
+        getWinnerToken()
+        return
+      }
+      playRound()
+      if (turn == 8 && checkWin() == false) {
+        console.log("It's a tie!")
+      }
+    }
   }
   return {
-    clearBoard,
+    getTurn,
+    playGame,
+    resetGame,
     getWinnerToken,
     checkWin,
     playRound,
