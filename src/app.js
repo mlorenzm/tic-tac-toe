@@ -1,33 +1,3 @@
-const displayController = (() => {
-  const startBtn = document.getElementById('start'),
-    main = document.getElementById('main'),
-    submitBtn = document.getElementById('start-game')
-
-  // document.querySelector("input[type='radio'][name=rate]:checked").value
-  // Functions
-  toggleScreen = () => {
-    const children = main.children
-    for (const child of main.children) {
-      child.classList.toggle('hidden')
-    }
-  }
-  createPlayers = (event) => {
-    p1 = playerFactory(
-      document.querySelector("input[type='radio'][name=p1-symbol]:checked")
-        .value
-    )
-    p2 = playerFactory(
-      document.querySelector("input[type='radio'][name=p2-symbol]:checked")
-        .value
-    )
-  }
-  // Events
-  submitBtn.addEventListener('click', createPlayers)
-  startBtn.addEventListener('click', toggleScreen)
-
-  return { toggleScreen: toggleScreen, createPlayers: createPlayers }
-})()
-
 //Gameboard, represents the state of the board
 const gameBoard = (() => {
   // our board is an array of 3x3
@@ -63,10 +33,7 @@ const playerFactory = (name, token) => {
 }
 // Controls game flow
 const gameController = (() => {
-  player1 = playerFactory('PlayerOne', 'X')
-  player2 = playerFactory('PlayerTwo', 'O')
-
-  players = [player1, player2]
+  players = []
   //Active player is Player one
   let activePlayer = players[0]
   let turn = 1
@@ -76,7 +43,9 @@ const gameController = (() => {
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === players[0] ? players[1] : players[0]
   }
-  const getActivePlayer = () => activePlayer
+  const getActivePlayer = () => {
+    return activePlayer
+  }
   // only for console implementation
   const printNewRound = () => {
     gameBoard.getBoard()
@@ -193,3 +162,24 @@ const gameController = (() => {
     getActivePlayer,
   }
 })()
+
+const displayController = (() => {
+  const startBtn = document.getElementById('start'),
+    main = document.getElementById('main'),
+    // Functions
+    toggleScreen = () => {
+      event.preventDefault()
+      const children = main.children
+      for (const child of main.children) {
+        child.classList.toggle('hidden')
+      }
+    }
+  createPlayers = () => {}
+  // Events
+  startBtn.addEventListener('click', toggleScreen)
+  startBtn.addEventListener('click', createPlayers)
+
+  return { toggleScreen, createPlayers }
+})()
+
+// displayController.toggleScreen()
