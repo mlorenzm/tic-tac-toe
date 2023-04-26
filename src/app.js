@@ -69,7 +69,10 @@ const gameController = (() => {
       getWinnerToken()
     }
   }
-  const announceWinner = (token, tie) => {}
+  const announceWinner = (token, tie) => {
+    const winnerModal = document.createElement('div')
+    const winnerMsg = document.createElement('div')
+  }
   const getWinnerToken = () => {
     let result = players.find(
       (item) => item.getToken() == gameController.checkWin()
@@ -209,7 +212,7 @@ const displayController = (() => {
       .getName()}'s turn`
   }
   // Events
-  startBtn.addEventListener('click', toggleScreen)
+  // startBtn.addEventListener('click', toggleScreen)
   startBtn.addEventListener('click', createPlayers)
 
   for (let i = 0; i < boardContainer.children.length; i++) {
