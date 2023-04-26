@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./dist/output.css" rel="stylesheet" />
+    <script defer src="src/app.js"></script>
+    <title>Tic Tac Toe</title>
+    <link rel="icon" type="image/png" href="../assets/tic-tac-toe-icon.svg" sizes="16x16"> 
+  </head>
+  <body class="grid place-items-center h-screen box-border">
+    <div id="main" class="grid gap-5 place-items-center">
+      <h1
+        class="text-9xl  font-black text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-sky-300"
+      >
+        Tic-Tac-Toe
+      </h1>
+      <form id="form-container" class="flex flex-col gap-6 mt-6 shadow-lg p-6 rounded-lg">
+        <div  class="flex flex-col gap-2 mt-3">
+          <div id="p1-header" class="flex flex-row content-center justify-between">
+            <label for="p1" class="text-lg font-semibold">Player One</label>
+            <img src="../assets/cross-icon.svg" width="20px" >
+          </div>
+          <input type="text" name="p1" id="p1" placeholder="Player One"class="border-rose-300 p-1 pl-2 border rounded-md shadow-sm placeholder:text-gray-400">
+        </div>
+        <div  class="flex flex-col gap-2 mt-3">
+          <div id="p2-header" class="flex flex-row content-center justify-between">
+            <label for="p2" class="text-lg font-semibold">Player Two</label>
+              <img src="../assets/circle-icon.svg" width="20px" >
+            </div>
+            <input type="text" name="p2" id="p2" placeholder="Player Two" class="border-sky-300 p-1 pl-2 border-2 rounded-md shadow-sm">
+        </div>
+        <input
+        id="start"
+        class="bg-slate-200 text-lg w-40 font-bold px-4 py-4 rounded-md hover:bg-transparent border shadow-sm transition-all hover:shadow-md cursor-pointer self-center" type="submit" value="Start Game">
+
+    </form>
+
+        <div id="game" class="hidden flex flex-col gap-6">
+          <div id="player-turn" class="text-2xl text-center"></div>
+          <div id="board-container" class="grid grid-cols-3 gap-3">
+            <div data-value = '0'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '1'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '2'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '3'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '4'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '5'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '6'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '7'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+            <div data-value = '8'class="w-36 h-36 bg-gray-400 rounded-lg text-8xl text-white flex items-center justify-center font-sigmar select-none"></div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
