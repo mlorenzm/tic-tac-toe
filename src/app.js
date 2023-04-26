@@ -61,23 +61,79 @@ const gameController = (() => {
     console.log(gameBoard.turn)
     if (checkWin() == false && gameBoard.turn == 9) {
       console.log('its a tie')
+      announceWinner(true)
     } else if (checkWin() == false) {
       gameBoard.turn++
       switchPlayerTurn()
       displayController.announceActivePlayer()
     } else {
-      getWinnerToken()
+      announceWinner()
     }
   }
-  const announceWinner = (token, tie) => {
-    const winnerModal = document.createElement('div')
-    const winnerMsg = document.createElement('div')
+  const announceWinner = (tie) => {
+    const modal = document.createElement('div')
+    modal.classList.add(
+      'bg-gray-900',
+      'bg-opacity-20',
+      'grid',
+      'place-items-center',
+      'absolute',
+      'h-screen',
+      'w-screen'
+    )
+    const modalBox = document.createElement('div')
+    modalBox.classList.add(
+      'bg-gray-100',
+      'flex',
+      'flex-col',
+      'justify-center',
+      'items-center',
+      'gap-9',
+      'mt-6',
+      'shadow-lg',
+      'p-6',
+      'rounded-lg',
+      'w-3/4',
+      'h-1/2',
+      'p-4',
+      'pl-6'
+    )
+    let modalContent = document.createElement('p')
+
+    modalContent.classList.add('font-black', 'text-6xl')
+    if (tie == true) {
+      modalContent.textContent = "It's a tie!"
+    } else {
+      modalContent.textContent = `${getWinnerInfo().winner.getName()}, with token '${getWinnerInfo().winner.getToken()}' wins!`
+    }
+    let resetButton = document.createElement('button')
+    resetButton.classList.add(
+      'bg-white',
+      'text-lg',
+      'w-40',
+      'font-bold',
+      'px-4',
+      'py-4',
+      'rounded-md',
+      'hover:bg-gray-100',
+      'border',
+      'shadow-sm',
+      'transition-all',
+      'hover:shadow-md',
+      'cursor-pointer',
+      'self-center'
+    )
+    resetButton.textContent = 'Play Again?'
+    resetButton.addEventListener('click', resetGame)
+    modalBox.append(modalContent, resetButton)
+    modal.append(modalBox)
+    main.append(modal)
   }
-  const getWinnerToken = () => {
-    let result = players.find(
+  const getWinnerInfo = () => {
+    let winner = players.find(
       (item) => item.getToken() == gameController.checkWin()
     )
-    console.log(`${result.getName()} wins!`)
+    return { winner }
   }
   // Manually check each win case. Return either false (no winners yet), or winner's token
   const checkWin = () => {
@@ -141,28 +197,31 @@ const gameController = (() => {
     return false
   }
   const resetGame = () => {
+    console.log('resetting')
     for (let i = 0; i < gameBoard.getBoard().length; i++) {
       gameBoard.getBoard()[i] = ''
     }
-    activePlayer = players[0]
+    players = []
+    main.removeChild(main.lastChild)
+    toggleScreen()
   }
-  const playGame = () => {
-    for (let turn = 0; turn < 9; turn++) {
-      res = checkWin()
-      if (res != false) {
-        getWinnerToken()
-        return
-      }
-      // playRound()
-      if (turn == 8 && res == false) {
-        console.log("It's a tie!")
-      }
-    }
-  }
+  // const playGame = () => {
+  //   for (let turn = 0; turn < 9; turn++) {
+  //     res = checkWin()
+  //     if (res != false) {
+  //       getWinnerToken()
+  //       return
+  //     }
+  //     // playRound()
+  //     if (turn == 8 && res == false) {
+  //       console.log("It's a tie!")
+  //     }
+  //   }
+  // }
   return {
-    playGame,
+    announceWinner,
     resetGame,
-    getWinnerToken,
+    getWinnerInfo,
     checkWin,
     playRound,
     activePlayer,
@@ -212,7 +271,7 @@ const displayController = (() => {
       .getName()}'s turn`
   }
   // Events
-  // startBtn.addEventListener('click', toggleScreen)
+  startBtn.addEventListener('click', toggleScreen)
   startBtn.addEventListener('click', createPlayers)
 
   for (let i = 0; i < boardContainer.children.length; i++) {
