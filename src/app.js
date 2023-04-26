@@ -44,11 +44,7 @@ const gameController = (() => {
   const getActivePlayer = () => {
     return activePlayer
   }
-  // only for console implementation
-  const printNewRound = () => {
-    gameBoard.getBoard()
-    console.log(`${getActivePlayer().getName()}'s turn.`)
-  }
+
   const getBoard = () => {
     return gameBoard.getBoard()
   }
@@ -57,10 +53,8 @@ const gameController = (() => {
     gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
     e.target.textContent = getActivePlayer().getToken()
     e.target.removeEventListener('click', gameController.playRound)
-    console.log(gameBoard.getBoard())
-    console.log(gameBoard.turn)
+
     if (checkWin() == false && gameBoard.turn == 9) {
-      console.log('its a tie')
       announceWinner(true)
     } else if (checkWin() == false) {
       gameBoard.turn++
@@ -70,6 +64,7 @@ const gameController = (() => {
       announceWinner()
     }
   }
+
   const announceWinner = (tie) => {
     const modal = document.createElement('div')
     modal.classList.add(
@@ -204,20 +199,16 @@ const gameController = (() => {
     players = []
     main.removeChild(main.lastChild)
     toggleScreen()
+    gameBoard.turn = 1
+    for (let i = 0; i < boardContainer.children.length; i++) {
+      boardContainer.children[i].textContent = ''
+      boardContainer.children[i].addEventListener(
+        'click',
+        gameController.playRound
+      )
+    }
   }
-  // const playGame = () => {
-  //   for (let turn = 0; turn < 9; turn++) {
-  //     res = checkWin()
-  //     if (res != false) {
-  //       getWinnerToken()
-  //       return
-  //     }
-  //     // playRound()
-  //     if (turn == 8 && res == false) {
-  //       console.log("It's a tie!")
-  //     }
-  //   }
-  // }
+
   return {
     announceWinner,
     resetGame,
@@ -227,12 +218,11 @@ const gameController = (() => {
     activePlayer,
     getBoard,
     switchPlayerTurn,
-    players,
-    printNewRound,
     getActivePlayer,
   }
 })()
 
+// DOM
 const displayController = (() => {
   const startBtn = document.getElementById('start'),
     main = document.getElementById('main'),
@@ -288,5 +278,3 @@ const displayController = (() => {
     createPlayers,
   }
 })()
-
-// displayController.toggleScreen()
