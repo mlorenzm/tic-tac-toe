@@ -2,6 +2,7 @@
 const gameBoard = (() => {
   // our board is an array of 3x3
   board = ['', '', '', '', '', '', '', '', '']
+  let turn = 1
   // we need a method to export our board
   const getBoard = () => board
 
@@ -16,7 +17,7 @@ const gameBoard = (() => {
     }
   }
 
-  return { getBoard, placeToken }
+  return { turn, getBoard, placeToken }
 })()
 
 // Factory function for creating new players
@@ -51,15 +52,26 @@ const gameController = (() => {
   const getBoard = () => {
     return gameBoard.getBoard()
   }
-  const playRound = (index) => {
-    console.log(index)
+  const playRound = (e) => {
+    index = e.target.dataset.value
     gameBoard.placeToken(gameBoard.getBoard(), activePlayer, index)
+    e.target.textContent = getActivePlayer().getToken()
+    e.target.removeEventListener('click', gameController.playRound)
     console.log(gameBoard.getBoard())
-    switchPlayerTurn()
+    console.log(gameBoard.turn)
+    if (checkWin() == false && gameBoard.turn == 9) {
+      console.log('its a tie')
+    } else if (checkWin() == false) {
+      gameBoard.turn++
+      switchPlayerTurn()
+      displayController.announceActivePlayer()
+    } else {
+      getWinnerToken()
+    }
   }
-
+  const announceWinner = (token, tie) => {}
   const getWinnerToken = () => {
-    result = players.find(
+    let result = players.find(
       (item) => item.getToken() == gameController.checkWin()
     )
     console.log(`${result.getName()} wins!`)
@@ -133,13 +145,13 @@ const gameController = (() => {
   }
   const playGame = () => {
     for (let turn = 0; turn < 9; turn++) {
-      checkWin()
-      if (checkWin() != false) {
+      res = checkWin()
+      if (res != false) {
         getWinnerToken()
         return
       }
-      playRound()
-      if (turn == 8 && checkWin() == false) {
+      // playRound()
+      if (turn == 8 && res == false) {
         console.log("It's a tie!")
       }
     }
@@ -200,12 +212,12 @@ const displayController = (() => {
   startBtn.addEventListener('click', toggleScreen)
   startBtn.addEventListener('click', createPlayers)
 
-  boardContainer.addEventListener(
-    'click',
-    gameController.playRound((e) => {
-      return e.target.dataset.value
-    })
-  )
+  for (let i = 0; i < boardContainer.children.length; i++) {
+    boardContainer.children[i].addEventListener(
+      'click',
+      gameController.playRound
+    )
+  }
   return {
     boardContainer,
     announceActivePlayer,
