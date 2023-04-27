@@ -22,6 +22,8 @@ Part of the Odin Project [Javascript Course](https://www.theodinproject.com/less
 ## Known Limitations
 
 - No "vs. CPU" mode
+- Module functions may export some unsafe data
+- There is a module by the DOM but the final modal who announces the winner is not in that module, but in the module that controls the game itself
 
 ## Feedback
 
